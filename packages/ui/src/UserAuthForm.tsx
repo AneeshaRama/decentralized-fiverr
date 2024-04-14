@@ -13,7 +13,7 @@ const formSchema = z.object({
   password: z.string().min(6, {message: 'Password must contain atleast 6 characters'}),
 })
 
-export const UserSignupForm = () => {
+export const UserAuthForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -65,7 +65,7 @@ export const UserSignupForm = () => {
                     />
               </div>
               <Button className='w-full' variant={'primary'}>
-                      Sign up
+                      Submit
               </Button>
             </form>
         </Form>

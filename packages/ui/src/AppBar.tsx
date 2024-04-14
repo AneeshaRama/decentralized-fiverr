@@ -27,11 +27,13 @@ export const AppBar = () => {
             <div className='flex items-center justify-start gap-x-2'>
                 <Gem className='h-5 w-5 text-secondary'/>
                 <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Become a seller</p>
-            </div>            
-            <div className='flex items-center justify-start gap-x-2'>
-                <UserCircle className='h-5 w-5 text-secondary'/>
-                <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Sign in</p>
             </div>
+            <Link href={'/user/signin'}>
+                <div className='flex items-center justify-start gap-x-2'>
+                    <UserCircle className='h-5 w-5 text-secondary'/>
+                    <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Sign in</p>
+                </div>
+            </Link>            
             <Link href={'/user/signup'}>
                 <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out' variant={'outline'}>Join</Button>
             </Link>
@@ -45,10 +47,12 @@ export const AppBar = () => {
                     <Gem className='h-5 w-5 text-secondary'/>
                     <p className='font-semibold'>Become a seller</p>
                 </div>
-                <div className='text-primary flex items-center justify-start gap-x-2'>
-                    <UserCircle className='h-5 w-5 text-secondary'/>
-                    <p className='font-semibold'>Sign in</p>
-                </div>
+                <Link href={'/user/signin'}>
+                    <div className='text-primary flex items-center justify-start gap-x-2'>
+                        <UserCircle className='h-5 w-5 text-secondary'/>
+                        <p className='font-semibold'>Sign in</p>
+                    </div>
+                </Link>
                 <Link href={'/user/signup'}>
                     <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out w-40' variant={'outline'}>Join</Button>
                 </Link>

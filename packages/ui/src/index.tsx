@@ -1,4 +1,4 @@
 export * from './AppBar'
-export * from './UserSignupForm'
+export * from './UserAuthForm'
 export * from './GoogleSignInButton'
-export * from './Devider'
+export * from './Divider'
