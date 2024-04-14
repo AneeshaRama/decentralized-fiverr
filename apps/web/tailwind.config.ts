@@ -74,6 +74,13 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      backgroundColor:{
+        'primary': '#22c55e',
+      },
+      textColor:{
+        'primary': '#404145',
+        'secondary': '#22c55e'
+      },
     },
   },
   plugins: [],
