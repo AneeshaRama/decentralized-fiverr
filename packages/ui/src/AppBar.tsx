@@ -7,6 +7,7 @@ import {
 } from './shadcn/ui/sheet';
 import { AppLogo } from './AppLogo';
 import { Input } from './shadcn/ui/input';
+import Link from 'next/link';
 
 interface AppBarProps{
     isSeller: string;
@@ -31,7 +32,9 @@ export const AppBar = () => {
                 <UserCircle className='h-5 w-5 text-secondary'/>
                 <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Sign in</p>
             </div>
-            <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out' variant={'outline'}>Join</Button>
+            <Link href={'/user/signup'}>
+                <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out' variant={'outline'}>Join</Button>
+            </Link>
         </div>
         <Sheet>
             <SheetTrigger className='lg:hidden' asChild>
@@ -46,7 +49,9 @@ export const AppBar = () => {
                     <UserCircle className='h-5 w-5 text-secondary'/>
                     <p className='font-semibold'>Sign in</p>
                 </div>
-                <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out w-40' variant={'outline'}>Join</Button>
+                <Link href={'/user/signup'}>
+                    <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out w-40' variant={'outline'}>Join</Button>
+                </Link>
             </SheetContent>
         </Sheet>
     </div>
