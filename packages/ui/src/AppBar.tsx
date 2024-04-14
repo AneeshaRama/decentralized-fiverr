@@ -8,12 +8,15 @@ import {
 import { AppLogo } from './AppLogo';
 import { Input } from './shadcn/ui/input';
 import Link from 'next/link';
+import { Session } from 'next-auth';
+import LogoutButton from './LogoutButton';
 
 interface AppBarProps{
-    isSeller: string;
+    isSeller?: string;
+    session?: Session | null
 }
 
-export const AppBar = () => {
+export const AppBar = ({session}: AppBarProps) => {
   return (
     <div className='h-16 px-3 md:px-10 flex items-center justify-between py-10 shadow-sm'>
         <AppLogo/>
@@ -24,38 +27,55 @@ export const AppBar = () => {
             </div>
         </div>
         <div className='hidden lg:flex items-center justify-center gap-x-5 text-muted-foreground'>
-            <div className='flex items-center justify-start gap-x-2'>
-                <Gem className='h-5 w-5 text-secondary'/>
-                <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Become a seller</p>
-            </div>
-            <Link href={'/user/signin'}>
-                <div className='flex items-center justify-start gap-x-2'>
-                    <UserCircle className='h-5 w-5 text-secondary'/>
-                    <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Sign in</p>
-                </div>
-            </Link>            
-            <Link href={'/user/signup'}>
-                <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out' variant={'outline'}>Join</Button>
-            </Link>
+            {
+                !session && (
+                    <>
+                        <div className='flex items-center justify-start gap-x-2'>
+                            <Gem className='h-5 w-5 text-secondary'/>
+                            <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Become a seller</p>
+                         </div>
+                        <Link href={'/user/signin'}>
+                            <div className='flex items-center justify-start gap-x-2'>
+                                <UserCircle className='h-5 w-5 text-secondary'/>
+                                <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Sign in</p>
+                            </div>
+                        </Link>
+                        <Link href={'/user/signup'}>
+                            <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out' variant={'outline'}>Join</Button>
+                        </Link>
+                    </>
+                )
+            }
+            {
+                session && session.user && (
+                   <LogoutButton/>
+                )
+            }
         </div>
         <Sheet>
             <SheetTrigger className='lg:hidden' asChild>
                 <Menu className='text-secondary cursor-pointer'/>
             </SheetTrigger>
             <SheetContent className='flex flex-col items-start justify-start bg-[#f2f2f2] p-5'>
-                <div className='text-primary flex items-center justify-start gap-x-2 mt-3'>
-                    <Gem className='h-5 w-5 text-secondary'/>
-                    <p className='font-semibold'>Become a seller</p>
-                </div>
-                <Link href={'/user/signin'}>
-                    <div className='text-primary flex items-center justify-start gap-x-2'>
-                        <UserCircle className='h-5 w-5 text-secondary'/>
-                        <p className='font-semibold'>Sign in</p>
-                    </div>
-                </Link>
-                <Link href={'/user/signup'}>
-                    <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out w-40' variant={'outline'}>Join</Button>
-                </Link>
+                {
+                    !session && (
+                        <>
+                            <div className='text-primary flex items-center justify-start gap-x-2 mt-3'>
+                                <Gem className='h-5 w-5 text-secondary'/>
+                                <p className='font-semibold'>Become a seller</p>
+                            </div>
+                            <Link href={'/user/signin'}>
+                                <div className='text-primary flex items-center justify-start gap-x-2'>
+                                    <UserCircle className='h-5 w-5 text-secondary'/>
+                                    <p className='font-semibold'>Sign in</p>
+                                </div>
+                            </Link>
+                            <Link href={'/user/signup'}>
+                                <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out w-40' variant={'outline'}>Join</Button>
+                            </Link>
+                        </>
+                    )
+                }
             </SheetContent>
         </Sheet>
     </div>
