@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { Inter } from "next/font/google";
 import { NEXT_AUTH_CONFIG } from "../lib/auth";
+import { ThemeProvider } from "../providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +22,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toaster/>
-        <AppBar session={session}/>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+        >
+          <Toaster/>
+          <AppBar session={session}/>
           {children}
+        </ThemeProvider>
         </body>
     </html>
   );

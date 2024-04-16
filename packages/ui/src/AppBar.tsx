@@ -10,6 +10,7 @@ import { Input } from './shadcn/ui/input';
 import Link from 'next/link';
 import { Session } from 'next-auth';
 import LogoutButton from './LogoutButton';
+import { ModeToggle } from './ModeToggle';
 
 interface AppBarProps{
     isSeller?: string;
@@ -51,12 +52,13 @@ export const AppBar = ({session}: AppBarProps) => {
                    <LogoutButton/>
                 )
             }
+        <ModeToggle/>
         </div>
         <Sheet>
             <SheetTrigger className='lg:hidden' asChild>
                 <Menu className='text-secondary cursor-pointer'/>
             </SheetTrigger>
-            <SheetContent className='flex flex-col items-start justify-start bg-[#f2f2f2] p-5'>
+            <SheetContent className='flex flex-col items-start justify-start dark:bg-[#030711] bg-[#f2f2f2] p-5'>
                 {
                     !session && (
                         <>
@@ -70,11 +72,19 @@ export const AppBar = ({session}: AppBarProps) => {
                                     <p className='font-semibold'>Sign in</p>
                                 </div>
                             </Link>
-                            <Link href={'/user/signup'}>
-                                <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out w-40' variant={'outline'}>Join</Button>
-                            </Link>
                         </>
                     )
+                }
+                <div className='text-primary flex items-center justify-start gap-x-2 mt-3'>
+                    <ModeToggle/>
+                </div>
+                {!session && <Link href={'/user/signup'}>
+                                <Button className='text-secondary border-green-500 hover:bg-primary hover:text-white cursor-pointer font-semibold transition duration-300 ease-in-out w-40' variant={'outline'}>Join</Button>
+                            </Link>}
+                 {
+                session && session.user && (
+                   <LogoutButton/>
+                )
                 }
             </SheetContent>
         </Sheet>
