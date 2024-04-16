@@ -7,26 +7,44 @@ import { Input } from './shadcn/ui/input'
 import { Button } from './shadcn/ui/button'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { ToastAction } from './shadcn/ui/toast'
+import { useToast } from './shadcn/ui/use-toast'
 
-const formSchema = z.object({
+
+
+export const UserAuthForm = ({isSignUp}: {isSignUp: boolean}) => {
+
+  const formSchema = z.object({
   email: z.string().min(2, {message: 'email address is required'}).email({message: "Please enter valid email address"}),
-  password: z.string().min(6, {message: 'Password must contain atleast 6 characters'}),
+  password: z.string().min(6, {message: `Password must contain atleast 6 characters`}),
 })
 
-export const UserAuthForm = () => {
-
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
-      password: ''      
+      password: ''
     },
   })
 
-  const handleSignUp = async()=>{
-
+  const handleSignUp = async(values: z.infer<typeof formSchema>)=>{
+      const res = await signIn('credentials', {...values, redirect:false, isSignUp});
+      if(res?.ok){
+        router.refresh()
+      }
+      if(res?.error){
+        toast({
+          variant: "destructive",
+          title: res.error!,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        })
+      }
   }
 
   return (
@@ -65,7 +83,7 @@ export const UserAuthForm = () => {
                     />
               </div>
               <Button className='w-full' variant={'primary'}>
-                      Submit
+                      {isSignUp ? 'Sign up' : 'Sign in'}
               </Button>
             </form>
         </Form>

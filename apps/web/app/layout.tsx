@@ -1,9 +1,9 @@
-import { AppBar } from "@repo/ui/components";
+import { AppBar, Toaster } from "@repo/ui/components";
 import "@repo/ui/globals.css";
-import { useGetUser } from "@repo/ui/hooks";
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import { Inter } from "next/font/google";
-import { redirect } from "next/navigation";
+import { NEXT_AUTH_CONFIG } from "../lib/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +17,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await useGetUser();
+  const session = await getServerSession(NEXT_AUTH_CONFIG);
   return (
     <html lang="en">
       <body className={inter.className}>
-      <AppBar session={session}/>
-        {children}
-      </body>
+        <Toaster/>
+        <AppBar session={session}/>
+          {children}
+        </body>
     </html>
   );
 }
