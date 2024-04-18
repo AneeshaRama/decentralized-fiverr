@@ -28,13 +28,15 @@ export const AppBar = ({session}: AppBarProps) => {
             </div>
         </div>
         <div className='hidden lg:flex items-center justify-center gap-x-5 text-muted-foreground'>
+            <Link href={'/become-seller'}>
+                <div className='flex items-center justify-start gap-x-2'>
+                    <Gem className='h-5 w-5 text-secondary'/>
+                        <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Become a seller</p>
+                </div>
+            </Link>       
             {
                 !session && (
-                    <>
-                        <div className='flex items-center justify-start gap-x-2'>
-                            <Gem className='h-5 w-5 text-secondary'/>
-                            <p className='hover:text-secondary cursor-pointer font-semibold transition duration-300 ease-in-out'>Become a seller</p>
-                         </div>
+                    <>                                             
                         <Link href={'/user/signin'}>
                             <div className='flex items-center justify-start gap-x-2'>
                                 <UserCircle className='h-5 w-5 text-secondary'/>
